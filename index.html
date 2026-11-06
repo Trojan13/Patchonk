@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Pachinko-Aufmerksamkeitsstudie – Three.js-Prototyp" />
+    <title>Hikari Drop · Pachinko Study</title>
+  </head>
+  <body>
+    <main id="app">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">ATTENTION STUDY / PROTOTYPE 01</p>
+          <h1>Hikari <span>Drop</span></h1>
+        </div>
+        <div class="session-readout">
+          <span class="status-dot"></span>
+          <span id="sessionStatus">Bereit</span>
+          <strong id="sessionTimer">00:00</strong>
+          <button id="pauseButton" class="quiet-button" type="button">Pause</button>
+        </div>
+      </header>
+
+      <section class="study-notice" aria-label="Studienhinweis">
+        <strong>Studienmodus aktiv</strong>
+        <span>Kein Autoplay, keine künstliche Verlustangst. Du kannst jederzeit pausieren oder die Session beenden.</span>
+        <button id="endSessionButton" class="text-button" type="button">Session beenden</button>
+      </section>
+
+      <section class="workspace">
+        <aside class="control-panel panel">
+          <div class="panel-heading">
+            <p class="eyebrow">LAUNCH CONTROL</p>
+            <h2>Dein Setup</h2>
+          </div>
+          <label class="control-row">
+            <span>Stärke <output id="powerValue">62</output>%</span>
+            <input id="powerSlider" type="range" min="25" max="95" value="62" />
+          </label>
+          <label class="control-row">
+            <span>Winkel <output id="angleValue">0</output>°</span>
+            <input id="angleSlider" type="range" min="-18" max="18" value="0" />
+          </label>
+          <button id="dropButton" class="primary-button" type="button">
+            <span>●</span> Kugel starten
+          </button>
+          <p class="hint">Feinjustierung: Eine Kugel nach der anderen. Ziele ändern sich pro Runde.</p>
+
+          <div class="divider"></div>
+          <div class="mini-stats">
+            <div><span>Runde</span><strong id="roundValue">1</strong></div>
+            <div><span>Kugeln</span><strong id="ballValue">0</strong></div>
+            <div><span>Punkte</span><strong id="scoreValue">0</strong></div>
+          </div>
+
+          <div class="character-card">
+            <div class="character-orb">✦</div>
+            <div>
+              <strong>Hana</strong>
+              <span>Support-Clip bereit</span>
+            </div>
+            <button id="voiceButton" class="icon-button" type="button" aria-label="Hana Audio-Clip abspielen">▶</button>
+          </div>
+          <p class="hint">Lege später eigene, freiwillige Sprachclips unter <code>public/audio/</code> ab. Der Prototyp nutzt keine Computerstimme.</p>
+        </aside>
+
+        <section class="game-shell panel" aria-label="Pachinko-Spiel">
+          <div class="game-toolbar">
+            <div><span class="live-pill">LIVE BOARD</span> <span id="targetLabel">Ziel: Lila ×2</span></div>
+            <div class="combo-readout">Combo <strong id="comboValue">0</strong></div>
+          </div>
+          <div id="gameCanvas" class="game-canvas"></div>
+          <div class="game-caption">
+            <span>Die Bahn reagiert auf Winkel und Stärke.</span>
+            <span id="eventMessage">Eine Karte wartet auf dich.</span>
+          </div>
+        </section>
+
+        <aside class="attention-panel">
+          <div class="attention-header">
+            <div>
+              <p class="eyebrow">OPTIONAL SIDE LANE</p>
+              <h2>Aufmerksamkeitsfenster</h2>
+            </div>
+            <button id="attentionToggle" class="toggle active" type="button" aria-pressed="true">AN</button>
+          </div>
+          <div class="media-card shorts-card">
+            <div class="media-label">SHORTS / STUDY FEED</div>
+            <div class="shorts-preview">
+              <div class="play-ring">▶</div>
+              <span>Beispiel-Clip<br /><small>15 s · neutral</small></span>
+            </div>
+            <button class="media-action" type="button" data-media="shorts">Nächsten Clip anzeigen</button>
+          </div>
+          <div class="media-card stream-card">
+            <div class="media-label">TWITCH / WATCH WINDOW</div>
+            <div class="stream-preview"><span class="stream-dot"></span> Study stream <small>bereit</small></div>
+            <button class="media-action" type="button" data-media="stream">Fenster markieren</button>
+          </div>
+          <div class="attention-log">
+            <div><span>Fokus-Ereignisse</span><strong id="attentionEvents">0</strong></div>
+            <div><span>Side lane</span><strong id="sideLaneState">aktiv</strong></div>
+          </div>
+          <p class="hint">Side lane ist optional und wird nur als markiertes Beobachtungsfenster protokolliert. Keine externen Feeds werden automatisch geladen.</p>
+        </aside>
+      </section>
+
+      <section class="progression panel">
+        <div class="progression-copy">
+          <p class="eyebrow">ROGUELIKE META PROGRESSION</p>
+          <h2>Dein Lauf</h2>
+          <p>Jede Runde verändert die Zielkarte und schaltet sichere kosmetische Board-Varianten frei.</p>
+        </div>
+        <div class="relics">
+          <div class="relic unlocked"><span>◈</span><b>Prisma</b><small>aktiv</small></div>
+          <div class="relic"><span>✧</span><b>Windrad</b><small>Runde 3</small></div>
+          <div class="relic"><span>◇</span><b>Neon</b><small>Runde 5</small></div>
+        </div>
+        <div class="run-meter"><span>RUN FORTSCHRITT</span><div><i id="runProgress"></i></div><strong id="runProgressLabel">1 / 5</strong></div>
+      </section>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
